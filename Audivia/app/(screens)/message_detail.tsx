@@ -17,7 +17,7 @@ import { ChatInput } from "@/components/message/ChatInput";
 import { getChatRoomById, getMessagesByChatRoom } from "@/services/chat"; // <-- Import API
 //import { getChatRoomById } from "@/services/chat"; // <-- Nếu muốn lấy thêm info phòng chat
 import { useUser } from "@/hooks/useUser";
-import { chatSignalRService } from "@/services/chat_signalR";
+//import { chatSignalRService } from "@/services/chat_signalR";
 import { Message } from "@/models";
 
 export default function MessageDetailScreen() {
@@ -82,6 +82,7 @@ export default function MessageDetailScreen() {
     };
   }, []);
 
+  /*
   useEffect(() => {
     if (!chatRoomId) return;
 
@@ -158,6 +159,7 @@ export default function MessageDetailScreen() {
       chatSignalRService.removeTypingCallback(handleUserTyping);
     };
   }, [chatRoomId]);
+  */
 
   const goBack = () => {
     router.back();
@@ -237,11 +239,11 @@ export default function MessageDetailScreen() {
         <ChatInput
          // onSend={sendMessage}
           onTyping={async () => {
-            try {
-              await chatSignalRService.sendTypingStatus(chatRoomId as string, user?.id as string);
-            } catch (error) {
-              console.error('Error sending typing status:', error);
-            }
+            // try {
+            //   await chatSignalRService.sendTypingStatus(chatRoomId as string, user?.id as string);
+            // } catch (error) {
+            //   console.error('Error sending typing status:', error);
+            // }
           }}
           chatRoomId={chatRoomId as string}
         />

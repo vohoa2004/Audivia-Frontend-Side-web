@@ -10,7 +10,9 @@ import { navigate } from "expo-router/build/global-state/routing";
 import { Ionicons } from "@expo/vector-icons";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+/*
 import { notificationSignalRService } from "@/services/notificationSignalR";
+*/
 import Animated, { FadeOut } from 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -74,6 +76,7 @@ export default function Notifications() {
     }, [user?.id])
 
     // Tách riêng useEffect cho việc đăng ký SignalR event
+    /*
     useEffect(() => {
         // Đăng ký event handler
         notificationSignalRService.onDeleteNotification(handleDeleteFromSignalR)
@@ -83,6 +86,7 @@ export default function Notifications() {
             notificationSignalRService.removeDeleteNotificationCallback(handleDeleteFromSignalR)
         }
     }, []) // Empty dependency array vì handleDeleteFromSignalR là stable function
+    */
 
     const fetchNotificationsByUser = async (userId: string) => {
         try {

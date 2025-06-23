@@ -1,7 +1,7 @@
 // hooks/useNotificationCount.ts
 import { useEffect, useState } from "react";
 import { useUser } from "./useUser";
-import { notificationSignalRService } from "@/services/notificationSignalR";
+// import { notificationSignalRService } from "@/services/notificationSignalR";
 import { countUnreadNotifications } from "@/services/notification";
 
 export const useNotificationCount = () => {
@@ -25,16 +25,16 @@ export const useNotificationCount = () => {
       try {
         // Load số lượng thông báo từ database khi vào app
         await loadUnreadCount();
-        
+
         // Đăng ký callback để cập nhật số lượng thông báo khi có thông báo mới
-        notificationSignalRService.onUnreadCountChange = (count: number) => {
-          console.log('SignalR callback received count:', count);
-          // Force update state ngay lập tức
-          setUnreadCount(prevCount => {
-            console.log('Updating unreadCount from', prevCount, 'to', count);
-            return count;
-          });
-        };
+        // notificationSignalRService.onUnreadCountChange = (count: number) => {
+        //   console.log('SignalR callback received count:', count);
+        //   // Force update state ngay lập tức
+        //   setUnreadCount(prevCount => {
+        //     console.log('Updating unreadCount from', prevCount, 'to', count);
+        //     return count;
+        //   });
+        // };
       } catch (error) {
         console.error('Error initializing notification count:', error);
       }
@@ -44,7 +44,7 @@ export const useNotificationCount = () => {
 
     return () => {
       // Chỉ giảm số lượng listener, không stop connection
-      notificationSignalRService.stop();
+      // notificationSignalRService.stop();
     };
   }, [user?.id]);
 
@@ -53,7 +53,7 @@ export const useNotificationCount = () => {
     console.log('unreadCount changed to:', unreadCount);
   }, [unreadCount]);
 
-  return { 
+  return {
     unreadCount,
     loadUnreadCount
   };
@@ -126,9 +126,9 @@ export const useNotificationCount = () => {
 //         };
 //     }, [fetchUnreadCount]);
 
-//     return { 
-//         unreadCount, 
+//     return {
+//         unreadCount,
 //         refreshCount,
-//         updateCount 
+//         updateCount
 //     };
 // }; 

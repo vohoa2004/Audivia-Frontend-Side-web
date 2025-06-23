@@ -21,7 +21,6 @@ import { createChatRoom, createChatRoomMember, getChatRoomsByUserId, getPrivateR
 import { CreateGroupModal } from "@/components/message/CreateGroupModal";
 import { getUserFriends } from "@/services/user_follow";
 import { GroupAvatar } from "@/components/message/GroupAvatar";
-import { chatSignalRService } from "@/services/chat_signalR";
 import { SearchButton } from "@/components/common/SearchButton";
 
 
@@ -109,56 +108,6 @@ export default function MessagingInboxScreen() {
       }
     }, [user?.id])
   );
-
-  useEffect(() => {
-    // Lắng nghe tin nhắn mới
-    const handleReceiveMessage = (message: any) => {
-      console.log("Received message in inbox:", message);
-      const actualMessage = message.response || message;
-      console.log("Actual message:", actualMessage);
-
-
-      setChatRooms(prev => {
-        return prev.map(room => {
-          if (String(room.id) === String(actualMessage.chatRoomId)) {
-            return {
-              ...room,
-              lastMessage: actualMessage.content,
-              lastMessageTime: actualMessage.createdAt,
-              time: new Date(actualMessage.createdAt).toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit'
-              })
-            };
-          }
-          return room;
-        });
-      });
-    };
-
-    // Lắng nghe tin nhắn bị xóa
-    const handleDeleteMessage = (message: any) => {
-      setChatRooms(prev => {
-        return prev.map(room => {
-          if (room.id === message.chatRoomId) {
-            // Nếu tin nhắn bị xóa là tin nhắn cuối cùng, cần fetch lại tin nhắn cuối
-            fetchLastMessage(room.id);
-          }
-          return room;
-        });
-      });
-    };
-
-    // Đăng ký các event handlers
-    chatSignalRService.onReceiveMessage(handleReceiveMessage);
-    chatSignalRService.onMessageDeleted(handleDeleteMessage);
-
-    // Cleanup khi unmount
-    return () => {
-      // chatSignalRService.removeMessageCallback(handleReceiveMessage);
-      chatSignalRService.removeMessageDeletedCallback(handleDeleteMessage);
-    };
-  }, []);
 
   // Hàm fetch tin nhắn cuối cùng cho một phòng chat
   const fetchLastMessage = async (chatRoomId: string) => {

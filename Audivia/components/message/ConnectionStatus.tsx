@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { HubConnectionState } from '@microsoft/signalr';
-import { signalRService } from '@/services/chat_signalR';
 import { Ionicons } from '@expo/vector-icons';
 
 export const ConnectionStatus = () => {
   const [connectionState, setConnectionState] = useState<HubConnectionState | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // ... existing code ...
+  /*
   useEffect(() => {
     // Lấy trạng thái kết nối hiện tại
     setConnectionState(signalRService.getConnectionState());
@@ -31,7 +31,9 @@ export const ConnectionStatus = () => {
       signalRService.removeConnectionErrorCallback(handleConnectionError);
     };
   }, []);
-
+  */
+  // ... existing code ...
+  /*
   const handleRetry = async () => {
     setError(null);
     try {
@@ -41,6 +43,8 @@ export const ConnectionStatus = () => {
       console.error('Error reconnecting SignalR:', error);
     }
   };
+  */
+  // ... existing code ...
 
   if (!connectionState) return null;
 

@@ -1,3 +1,4 @@
+/*
 import { HttpTransportType, HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { Message, ChatRoomMember } from '@/models';
 
@@ -192,3 +193,4 @@ class SignalRService {
 }
 
 export const chatSignalRService = new SignalRService(); 
+*/ 

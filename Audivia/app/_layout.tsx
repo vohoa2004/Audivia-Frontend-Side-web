@@ -8,9 +8,11 @@ import { useEffect, useCallback } from 'react';
 import { SplashScreen, Stack, useRouter } from 'expo-router';
 import { useUser } from '@/hooks/useUser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+/*
 import { notificationSignalRService } from '@/services/notificationSignalR';
-import { AppState } from 'react-native';
 import { chatSignalRService } from '@/services/chat_signalR';
+*/
+import { AppState } from 'react-native';
 import { customFonts } from '@/utils/font';
 import { useFonts } from 'expo-font';
 
@@ -106,6 +108,7 @@ export default function RootLayout() {
     }
   }, [fontsLoaded]);
 
+  /*
   useEffect(() => {
     const initializeSignalR = async () => {
       try {
@@ -168,6 +171,7 @@ export default function RootLayout() {
       subscription.remove();
     };
   }, [user?.id]);
+  */
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

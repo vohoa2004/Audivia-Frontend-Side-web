@@ -1,3 +1,4 @@
+/*
 import * as SignalR from "@microsoft/signalr";
 
 const API_URL = process.env.EXPO_PUBLIC_SIGNALR_URL; 
@@ -149,5 +150,6 @@ class NotificationSignalRService {
 }
 
 export const notificationSignalRService = new NotificationSignalRService();
+*/
 
  
