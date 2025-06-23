@@ -1,0 +1,306 @@
+import { COLORS } from "@/constants/theme";
+import { Dimensions, StyleSheet } from "react-native";
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.light,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
+    margin: 10
+  },
+  locationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginHorizontal: 16,
+  },
+  locationText: {
+    fontSize: 16,
+    marginLeft: 4,
+    color: COLORS.light
+  },
+
+  searchContainer: {
+    position: 'absolute',
+    top: 180,
+    alignSelf: 'center',
+    zIndex: 2,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.light,
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    width: 350,
+    opacity: 1,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 8,
+  },
+  searchIcon: {
+    marginRight: 8,
+  },
+  searchInput: {
+    flex: 1,
+    marginLeft: 8,
+    fontSize: 16,
+  },
+  mainImageContainer: {
+    overflow: "hidden",
+    height: 210,
+  },
+  mainImage: {
+    width: "100%",
+    height: "100%",
+  },
+  categoriesSection: {
+    marginTop: 40,
+    paddingHorizontal: 16,
+  },
+
+  categoryItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 16,
+    borderRadius: 20,
+    backgroundColor: COLORS.lightGrey,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    justifyContent: 'center',
+    shadowColor: COLORS.darkGrey,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  categoryIconContainer: {
+    marginRight: 10,
+  },
+  categoryName: {
+    fontSize: 14,
+    textAlign: 'center',
+    color: COLORS.darkGrey,
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: "700",
+  },
+  categoriesContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  mapContainer: {
+    marginHorizontal: 16,
+    height: 180,
+    borderRadius: 12,
+    overflow: "hidden",
+    marginTop: 20,
+    marginBottom: 30,
+  },
+  mapImage: {
+    width: "100%",
+    height: "100%",
+  },
+  toursSection: {
+    paddingHorizontal: 16,
+    marginBottom: 10,
+  },
+  tourSubtitle: {
+    fontSize: 16,
+    color: COLORS.grey,
+    marginBottom: 12,
+  },
+  tourCard: {
+    borderRadius: 20,
+    backgroundColor: COLORS.light,
+    shadowColor: COLORS.dark,
+    shadowOffset: { width: 2, height: 8 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 5,
+    marginVertical: 4,
+  },
+  tourImage: {
+    width: "100%",
+    height: 150,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+  },
+  favoriteButton: {
+    position: "absolute",
+    top: -15,
+    right: 0,
+    backgroundColor: "rgba(0,0,0,0.3)",
+    borderRadius: 20,
+    width: 36,
+    height: 36,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tourDetails: {
+    padding: 12,
+  },
+  tourName: {
+    fontSize: 16,
+    fontWeight: "700",
+  },
+  tourLocation: {
+    fontSize: 16,
+    color: "#757575",
+    marginTop: 4,
+  },
+  tourRating: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 8,
+  },
+  ratingText: {
+    fontSize: 16,
+    marginLeft: 4,
+  },
+  tourFooter: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 12,
+  },
+  freeTag: {
+    backgroundColor: "#E3F2FD",
+    color: "#2196F3",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+    fontSize: 14,
+  },
+  bookButtonText: {
+    color: COLORS.light,
+    fontWeight: "600",
+  },
+  tourList: {
+    padding: 16,
+    paddingTop: 8,
+  },
+  priceText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: COLORS.primary,
+  },
+  priceAndBookContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  bookButton: {
+    width: 100,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  topPlacesSection: {
+    marginTop: 20,
+    marginBottom: 60,
+  },
+  sectionTopPlaceHeader:{
+    paddingHorizontal: 16
+  },
+  avatarWrapper: {
+    width: 52,
+    height: 52,
+    borderRadius: 21,
+    overflow: "hidden",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.6)',
+  },
+  userInfoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  userNameText: {
+    fontSize: 18,
+    color: COLORS.light,
+    fontWeight: 'bold',
+  },
+  headerIcons: {
+    flexDirection: "row",
+    alignItems: "center",
+    color: COLORS.light,
+  },
+  iconContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    borderRadius: 20,
+    padding: 5,
+    shadowColor: COLORS.dark,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.6)',
+    marginLeft: 10,
+  },
+  avatarImage: {
+    width: "100%",
+    height: "100%",
+  },
+
+  overlayHeader: {
+    position: 'absolute',
+    top: -2,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+  },
+  suggestionContainer: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    marginHorizontal: 20,
+    marginTop: -10,
+    padding: 10,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  suggestionItem: {
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  detailedSearchButton: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: COLORS.primary,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  detailedSearchText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+})
+export default styles;
