@@ -15,6 +15,11 @@ export default {
     "deepLinking": true,
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.audivia.app",
@@ -52,7 +57,7 @@ export default {
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router",
+      "expo-router/plugin",
       [
         "expo-location",
         {
@@ -77,7 +82,6 @@ export default {
           "backgroundColor": "#ffffff"
         }
       ],
-
       "expo-font",
       // [
       //   "@react-native-google-signin/google-signin",
@@ -94,10 +98,7 @@ export default {
     "extra": {
       "router": {
         "origin": false
-      },
-      "eas": {
-        "projectId": "f2a89538-adbf-47fb-b851-3a138194381b"
-      },
+      }
     }
   }
 }
