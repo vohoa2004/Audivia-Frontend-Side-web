@@ -34,7 +34,12 @@ export const ConnectionStatus = () => {
 
   const handleRetry = async () => {
     setError(null);
-    await signalRService.checkAndReconnect();
+    try {
+      await signalRService.checkAndReconnect();
+    } catch (error) {
+      setError('Không thể kết nối lại. Vui lòng thử lại sau.');
+      console.error('Error reconnecting SignalR:', error);
+    }
   };
 
   if (!connectionState) return null;

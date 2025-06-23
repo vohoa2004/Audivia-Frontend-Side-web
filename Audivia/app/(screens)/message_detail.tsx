@@ -236,8 +236,12 @@ export default function MessageDetailScreen() {
       >
         <ChatInput
          // onSend={sendMessage}
-          onTyping={() => {
-            chatSignalRService.sendTypingStatus(chatRoomId as string, user?.id as string);
+          onTyping={async () => {
+            try {
+              await chatSignalRService.sendTypingStatus(chatRoomId as string, user?.id as string);
+            } catch (error) {
+              console.error('Error sending typing status:', error);
+            }
           }}
           chatRoomId={chatRoomId as string}
         />

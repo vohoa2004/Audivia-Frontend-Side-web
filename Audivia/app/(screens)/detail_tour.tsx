@@ -13,8 +13,8 @@ import { TourTabs } from "@/components/detail_tour/TourTabs"
 import { useUser } from "@/hooks/useUser"
 import { COLORS } from "@/constants/theme"
 import { createTransactionHistory } from "@/services/historyTransaction"
-// import { createNotification } from "@/services/notification"
-// import { useNotificationCount } from "@/hooks/useNotificationCount"
+import { createNotification } from "@/services/notification"
+import { useNotificationCount } from "@/hooks/useNotificationCount"
 import { getTourProgress, createTourProgress } from "@/services/progress"
 import { LinearGradient } from "expo-linear-gradient"
 import { formatMoney } from "@/utils/formatter"
@@ -27,7 +27,7 @@ export default function TourDetailScreen() {
   const { user } = useUser()
   const [transaction, setTransaction] = useState<any>()
   const [showPurchaseModal, setShowPurchaseModal] = useState(false)
-  // const { unreadCount, loadUnreadCount } = useNotificationCount()
+  const { unreadCount, loadUnreadCount } = useNotificationCount()
 
   const fetchTourById = useCallback(async () => {
     try {
@@ -108,8 +108,8 @@ export default function TourDetailScreen() {
         type: "Thanh toán tour",
         isRead: false,
       }
-      // await createNotification(notificationParams)
-      // loadUnreadCount()
+      await createNotification(notificationParams)
+      loadUnreadCount()
 
       router.push(`/detail_tour?tourId=${tourId}`)
     }

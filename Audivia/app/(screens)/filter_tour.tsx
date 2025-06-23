@@ -16,7 +16,7 @@ import { styles } from "@/styles/filter_tour.styles"
 import { getAllTours } from "@/services/tour"
 import { getTourTypes } from "@/services/tour_type"
 import { COLORS } from "@/constants/theme"
-// import { NotificationButton } from "@/components/common/NotificationButton"
+import { NotificationButton } from "@/components/common/NotificationButton"
 import { BackButton } from "@/components/common/BackButton"
 import { ChatMessageButton } from "@/components/common/ChatMessage"
 import { TourItem } from "@/components/common/TourItem"
@@ -103,7 +103,7 @@ export default function FilterTourScreen() {
         </View>
         <View style={styles.headerRight}>
           <View style={styles.notification}>
-            {/* <NotificationButton /> */}
+            <NotificationButton />
           </View>
           <View style={styles.chat}>
             <ChatMessageButton />

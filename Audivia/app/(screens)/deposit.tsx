@@ -20,8 +20,8 @@ import QRCode from "react-native-qrcode-svg"
 import ViewShot, { captureRef } from "react-native-view-shot"
 import * as MediaLibrary from "expo-media-library"
 import { useUser } from "@/hooks/useUser"
-// import { createNotification } from "@/services/notification"
-// import { useNotificationCount } from "@/hooks/useNotificationCount"
+import { createNotification } from "@/services/notification"
+import { useNotificationCount } from "@/hooks/useNotificationCount"
 
 export default function DepositScreen() {
   const params = useLocalSearchParams()
@@ -32,7 +32,7 @@ export default function DepositScreen() {
   const qrRef = useRef<ViewShot>(null)
   const router = useRouter()
   const { user } = useUser()
-  // const { unreadCount, loadUnreadCount } = useNotificationCount()
+  const { unreadCount, loadUnreadCount } = useNotificationCount()
 
   const goBack = () => router.back()
 
@@ -96,8 +96,8 @@ export default function DepositScreen() {
               type: "Nạp ví Audivia",
               isRead: false,
             }
-            // await createNotification(notificationParams)
-            // await loadUnreadCount()
+            await createNotification(notificationParams)
+            await loadUnreadCount()
           } catch (error) {
             console.error('Lỗi khi tạo thông báo:', error)
           }
