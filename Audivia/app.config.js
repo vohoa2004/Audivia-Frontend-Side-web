@@ -57,7 +57,7 @@ export default {
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router/plugin",
+      "expo-router",
       [
         "expo-location",
         {
