@@ -14,9 +14,9 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   isLoading: true,
-  login: async () => {},
-  logout: async () => {},
-  checkOnboardingStatus: async () => {},
+  login: async () => { },
+  logout: async () => { },
+  checkOnboardingStatus: async () => { },
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const hasSeenOnboarding = await AsyncStorage.getItem('hasSeenOnboarding');
       if (!hasSeenOnboarding) {
-        router.replace('/(auth)/onboarding');
+        // router.replace('/(auth)/onboarding');
       }
     } catch (error) {
       console.error('Error checking onboarding status:', error);
