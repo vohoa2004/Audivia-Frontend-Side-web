@@ -52,6 +52,8 @@ export default {
       ]
     },
     "web": {
+      "bundler": "metro",
+      "output": "server",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
