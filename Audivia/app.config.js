@@ -52,9 +52,10 @@ export default {
       ]
     },
     "web": {
+      "name": "Audivia", 
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/logoAudi"
     },
     "plugins": [
       "expo-router",
