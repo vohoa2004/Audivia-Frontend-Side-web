@@ -55,7 +55,7 @@ export default {
       "name": "Audivia", 
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/logoAudi"
+      "favicon": "./assets/images/logoAudi.png"
     },
     "plugins": [
       "expo-router",
