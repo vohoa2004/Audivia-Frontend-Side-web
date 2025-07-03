@@ -39,7 +39,7 @@ export const getReviewTourByTourIdAndUserId = async (tourId: string, userId: str
   }
 }
 
-export const updateReviewTour = async (reviewId: string, data: { rating: number; content: string; title: string }) => {
+export const updateReviewTour = async (reviewId: string, data: { rating: number; content: string; title: string | null }) => {
   try {
     const response = await apiClient.put(`/tour-reviews/${reviewId}`, data);
     return response.data;

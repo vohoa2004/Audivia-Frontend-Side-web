@@ -166,7 +166,7 @@ export default function FilterTourScreen() {
         <FlatList
           data={tours}
           keyExtractor={(item, index) => `${item.id}-${index}`}
-          renderItem={({ item }) => <TourItem tour={item} />}
+          renderItem={({ item }) => <TourItem tour={item} savedTourId={""} />}
           showsVerticalScrollIndicator={false}
           onEndReached={handleLoadMore}
           onEndReachedThreshold={0.5}
