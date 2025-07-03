@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View, TextInput, Modal, FlatList, ActivityIndicator, Alert, StyleSheet } from "react-native";
+import { Image, Text, TouchableOpacity, View, TextInput, Modal, FlatList, ActivityIndicator, Alert, StyleSheet, ScrollView } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { COLORS } from "@/constants/theme";
 import { styles } from "@/styles/forum.styles";
@@ -249,12 +249,17 @@ export const ForumPost = ({ item }: ForumPostProps) => {
 
         {/* Post Image */}
         <View style={styles.postImageContainer}>
-          <Image
-            source={{ uri: item.images[0] }}
-            style={styles.postImage}
-            resizeMode="cover"
-          />
-        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+          {item.images.map((img, idx) => (
+            <Image
+              key={idx}
+              source={{ uri: img }}
+              style={styles.postImage}
+               resizeMode="cover"
+            />
+          ))}
+        </ScrollView>
+      </View>
 
         {/* Post Actions */}
         <View style={styles.postActions}>
