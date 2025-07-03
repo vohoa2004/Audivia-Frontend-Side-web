@@ -64,7 +64,13 @@ export const SaveTourCard = ({ item, onDelete }: SaveTourCardProps) => {
           </TouchableOpacity>
         </View>
       )}
-      <Image source={{ uri: item.tour.thumbnailUrl }} style={styles.tourImage} />
+      {item.tour && item.tour.thumbnailUrl ? (
+        <Image source={{ uri: item.tour.thumbnailUrl }} style={styles.tourImage} />
+      ) : (
+        <View style={[styles.tourImage, { justifyContent: 'center', alignItems: 'center', backgroundColor: '#eee' }]}>
+          <Text style={{ color: '#999' }}>Không có ảnh</Text>
+        </View>
+      )}
       <View style={styles.tourContent}>
         <View style={styles.tourHeader}>
           <View>
