@@ -9,40 +9,16 @@ import { useAuth } from "@/contexts/AuthContext";
 
 import AuthForm from "@/components/common/AuthForm";
 import * as WebBrowser from "expo-web-browser"
-// import * as Google from "expo-auth-session/providers/google"
 import { useEffect } from "react";
-// import {GoogleSignin, isSuccessResponse, isErrorWithCode, statusCodes } from "@react-native-google-signin/google-signin"
+import { useUser } from "@/hooks/useUser";
+import { CredentialResponse } from "@react-oauth/google";
+import { authService } from "@/services/auth";
 export default function Login() {
-
-  // const webClientId = process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID
-  // const iosClientId = process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID
-  // const androidClientId = process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID
-
+  const { user } = useUser();
+  const webClientId = process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID
   WebBrowser.maybeCompleteAuthSession();
   const router = useRouter();
   const { login: authLogin } = useAuth();
-
-  // const [request, response, promptAsync] = Google.useAuthRequest({
-  // webClientId,
-  // iosClientId,
-  // androidClientId,
-  // });
-
-  // useEffect(() => {
-  //   GoogleSignin.configure({
-  //    // iosClientId: iosClientId,
-  //     webClientId: webClientId,
-  //   })
-  // }, [])
-
-  // useEffect(() => {
-  //   if (response?.type === "success") {
-  //     const { authentication } = response;
-  //     const token = authentication?.accessToken;
-  //     console.log("access token", token);
-  //     // TODO: Send token to your backend
-  //   }
-  // }, [response]);
 
   const handleLogin = async (email: string, password: string, _username: string) => {
     try {
@@ -58,43 +34,33 @@ export default function Login() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    console.log("Login Google!");
+  const handleGoogleLoginSuccess = async (credentialResponse: CredentialResponse) => {
+    try {
+      if (user != null) {
+        logout();
+        alert("Bạn đã được đăng xuất khỏi tài khoản hiện tại để đăng nhập bằng Google.");;
+      }
+
+      const googleIdToken = credentialResponse.credential;
+
+      if (!googleIdToken) {
+        console.error("ID Token not found in Google credential response.");
+        alert("Login failed: ID Token missing.");
+        return;
+      }
+
+      const backendResponse = await loginWithGoogle(googleIdToken);
+
+      if (backendResponse.accessToken && backendResponse.refreshToken) {
+        await authLogin(backendResponse.accessToken, backendResponse.refreshToken);
+        alert('Đăng nhập Google thành công');
+      } else {
+        alert("Google login successful but backend failed to issue app tokens.");
+      }
+    } catch (error) {
+      console.error("Google login error:", error);
+    }
   }
-
-  // const handleGoogleLogin = async () => {
-  //   try {
-  //     GoogleSignin.configure({
-  //       // iosClientId: iosClientId,
-  //        webClientId: webClientId,
-  //      })
-  //     await GoogleSignin.signOut(); //reset de chon tai khoan google
-  //     console.log("Starting Google Login...");
-  //     await GoogleSignin.hasPlayServices();
-  //     const response = await GoogleSignin.signIn();
-
-  //     console.log("Google login result:", response);
-  //     if (isSuccessResponse(response)) {
-  //       const { idToken, user } = response.data;
-  //       const {name, email, photo} = user
-
-  //       const token = idToken;
-  //       const backendResponse = await loginWithGoogle(token as string);
-  //       console.log(backendResponse);
-
-  //       if (backendResponse.accessToken && backendResponse.refreshToken) {
-  //        await authLogin(backendResponse.accessToken, backendResponse.refreshToken);
-  //        //alert('Đăng nhập Google thành công');
-  //       } else {
-  //        alert("Google login successful but backend failed to issue app tokens.");
-  //       }
-  //     }
-
-  //   } catch (error) {
-  //     console.error("Google login error:", error);
-  //   }
-  // }
-
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#fff' }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <ScrollView
@@ -126,11 +92,15 @@ export default function Login() {
         <AuthForm
           type="login"
           onSubmit={handleLogin}
-          onGoogleAuth={handleGoogleLogin}
+          onGoogleAuthSuccess={handleGoogleLoginSuccess}
           onForgotPassword={() => router.push("/forgot-password")}
           onToggleAuth={() => router.push("/signup")}
         />
       </ScrollView>
     </KeyboardAvoidingView>
   );
+}
+
+const logout = async () => {
+  await authService.logout();
 }

@@ -126,7 +126,7 @@ export default function OnboardingScreen() {
       colors={[COLORS.light, COLORS.secondary]}
       start={{ x: 0, y: 1 }}
       end={{ x: 0, y: -6 }}
-      style={[ styles.container]}
+      style={[styles.container]}
     >
       <FlatList
         ref={flatListRef}

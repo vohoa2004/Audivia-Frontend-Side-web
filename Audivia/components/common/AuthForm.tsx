@@ -11,11 +11,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Checkbox } from "react-native-paper";
 import { COLORS } from "@/constants/theme";
 import styles from "@/styles/auth.styles";
+import { FaGoogle } from 'react-icons/fa';
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 
 interface AuthFormProps {
   type: "login" | "signup";
   onSubmit: (email: string, password: string, username: string) => void;
-  onGoogleAuth?: () => void;
+  onGoogleAuthSuccess: (credentialResponse: CredentialResponse) => void;
   onForgotPassword?: () => void;
   onToggleAuth?: () => void;
 }
@@ -23,7 +25,7 @@ interface AuthFormProps {
 export default function AuthForm({
   type,
   onSubmit,
-  onGoogleAuth,
+  onGoogleAuthSuccess,
   onForgotPassword,
   onToggleAuth,
 }: AuthFormProps) {
@@ -140,12 +142,12 @@ export default function AuthForm({
 
       {type === "login" && (
         <View style={styles.social}>
-          <TouchableOpacity style={styles.socialButton} onPress={onGoogleAuth}>
-            <Ionicons name="logo-google" size={20} color={COLORS.red} style={styles.socialIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialButton} onPress={onGoogleAuth}>
-            <Ionicons name="logo-facebook" size={20} color={COLORS.blue} style={styles.socialIcon} />
-          </TouchableOpacity>
+          <GoogleLogin
+            onSuccess={onGoogleAuthSuccess}
+            theme="outline"
+            size="large"
+            text="continue_with"
+          />
         </View>
       )}
 
