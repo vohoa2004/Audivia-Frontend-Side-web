@@ -58,6 +58,10 @@ export interface User {
   audioCharacterId: string;
   audioCharacterName: string;
   travelDistance: string;
+  birthDay?: string;
+  gender?: boolean;
+  job?: string;
+  country?: string;
 }
 
 export interface Post {

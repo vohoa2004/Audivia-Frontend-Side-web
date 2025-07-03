@@ -8,6 +8,9 @@ import { View, Dimensions } from 'react-native'
 
 export default function TabLayout() {
   const windowWidth = Dimensions.get('window').width;
+  const tabBarMarginHorizontal = 20; // Consistent margin
+  const tabBarWidth = windowWidth - (2 * tabBarMarginHorizontal);
+  const tabItemWidth = tabBarWidth / 5; // Divide by 5 tabs
 
   return (
     <Tabs screenOptions={{
@@ -17,16 +20,19 @@ export default function TabLayout() {
       tabBarStyle: {
         borderRadius: 20,
         height: 60,
-        marginHorizontal: 20,
+        marginHorizontal: tabBarMarginHorizontal,
         marginBottom: 10,
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingTop: 10,
         paddingBottom: 10,
+        width: tabBarWidth, // Explicitly set width
         borderWidth: 1,
         opacity: 1,
         position: 'absolute',
         bottom: 0,
+        left: tabBarMarginHorizontal, // Adjust left position with margin
+        right: tabBarMarginHorizontal, // Adjust right position with margin
         elevation: 0,
         backgroundColor: 'white',
       },
@@ -44,8 +50,7 @@ export default function TabLayout() {
           options={{
             headerShown: false,
             tabBarItemStyle: {
-              flex: 1,
-              marginHorizontal: 5,
+              width: tabItemWidth, // Use calculated width
               alignItems: 'center',
               justifyContent: 'center',
             },
