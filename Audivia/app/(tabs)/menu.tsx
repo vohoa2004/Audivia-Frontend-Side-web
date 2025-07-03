@@ -16,7 +16,7 @@ export default function MenuScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={true}>
+      <ScrollView showsVerticalScrollIndicator={true} contentContainerStyle={{ paddingBottom: 48 }}>
         <MenuHeader />
         <MenuAccount />
         <MenuPreferences />
