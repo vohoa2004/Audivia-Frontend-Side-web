@@ -73,7 +73,15 @@ export const getPrevAudioByCheckpointId = async (checkpointId: string) => {
     throw error
   }
 }
-
+export const hasTourAudioForTour = async (tourId: string) => {
+  try {
+    const response = await apiClient.get(`/checkpoint-audios/tour?tour=${tourId}`)
+    return response.data
+  } catch (error) {
+    console.error('Lỗi lấy tour audio:', error)
+    throw error
+  }
+}
 export const getSuggestedTours = async (userId: string | undefined, long: number, lat: number, radius: number) => {
   try {
     const response = await apiClient.get(`/tours/suggested?UserId=${userId}&Longitude=${long}&Latitude=${lat}&Radius=${radius}`)

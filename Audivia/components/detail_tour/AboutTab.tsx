@@ -6,6 +6,7 @@ import type { Checkpoint, Tour } from "@/models"
 
 interface AboutTabProps {
   tour: Tour | undefined
+  notForSaleMessage?: string
 }
 
 const renderDestinationItem = (destination: any, index: number) => (
@@ -25,9 +26,24 @@ const renderDestinationItem = (destination: any, index: number) => (
   </View>
 )
 
-export const AboutTab = ({ tour }: AboutTabProps) => {
+export const AboutTab = ({ tour, notForSaleMessage }: AboutTabProps) => {
   return (
     <View>
+      {notForSaleMessage && (
+        <View style={{ alignItems: 'center', marginVertical: 16, marginHorizontal: 8 }}>
+          <Text style={{
+            color: '#ff5722',
+            backgroundColor: '#fffbe6',
+            paddingHorizontal: 12,
+            paddingVertical: 4,
+            borderRadius: 8,
+            fontWeight: 'bold',
+            fontSize: 16,
+            textAlign: 'center',
+            width: '100%'
+          }}>{notForSaleMessage}</Text>
+        </View>
+      )}
       {/* Tour Title */}
       <View style={styles.tourTitleContainer}>
         <Text style={styles.tourName}>{tour?.title}</Text>

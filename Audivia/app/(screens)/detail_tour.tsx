@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, SafeAreaView, ScrollView, Modal } from "r
 import { useRouter, useLocalSearchParams } from "expo-router"
 import { styles } from "@/styles/tour_detail.styles"
 import type { Tour } from "@/models"
-import { getTourById } from "@/services/tour"
+import { getTourById, hasTourAudioForTour } from "@/services/tour"
 import { checkUserPurchasedTour } from "@/services/historyTransaction"
 import { TourHeader } from "@/components/detail_tour/TourHeader"
 import { AboutTab } from "@/components/detail_tour/AboutTab"
@@ -28,11 +28,14 @@ export default function TourDetailScreen() {
   const [transaction, setTransaction] = useState<any>()
   const [showPurchaseModal, setShowPurchaseModal] = useState(false)
   const { unreadCount, loadUnreadCount } = useNotificationCount()
+  const [hasAudio, setHasAudio] = useState<boolean>(false)
 
   const fetchTourById = useCallback(async () => {
     try {
       const response = await getTourById(tourId as string)
+      const checkHasAudioForTour = await hasTourAudioForTour(tourId as string)
       setTour(response.response)
+      setHasAudio(!!checkHasAudioForTour)
     } catch (error) {
       console.error("Error fetching tour by id:", error)
     }
@@ -139,7 +142,7 @@ export default function TourDetailScreen() {
         {/* Wrapper for content below tabs */}
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* Tab Content */}
-          {activeTab === "about" && <AboutTab tour={tour} />}
+          {activeTab === "about" && <AboutTab tour={tour} {...(!hasAudio ? { notForSaleMessage: 'Hiện tại tour đang phát triển, cùng chờ đợi nhé!' } : {})} />}
           {activeTab === "before" && <BeforeTab tour={tour} />}
           {activeTab === "reviews" && <ReviewsTab tour={tour} onReviewChange={fetchTourById} />}
 
@@ -155,16 +158,22 @@ export default function TourDetailScreen() {
           <Text style={styles.priceDisplayText}>{tour?.price.toLocaleString('vi-VN')} Đ</Text>
         </View>
         <View style={styles.startButtonWrapper}>
-          <LinearGradient
-            colors={[COLORS.primary, COLORS.purpleGradient]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={styles.startButtonGradient}
-          >
-            <TouchableOpacity style={styles.startButton} onPress={handlePurchase}>
-              <Text style={styles.startButtonText}>{transaction ? "Bắt đầu" : "Mua tour"}</Text>
-            </TouchableOpacity>
-          </LinearGradient>
+          {hasAudio ? (
+            <LinearGradient
+              colors={[COLORS.primary, COLORS.purpleGradient]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={styles.startButtonGradient}
+            >
+              <TouchableOpacity style={styles.startButton} onPress={handlePurchase}>
+                <Text style={styles.startButtonText}>{transaction ? "Bắt đầu" : "Mua tour"}</Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          ) : (
+            <View style={[styles.startButton, { backgroundColor: '#ffe0b2', justifyContent: 'center', alignItems: 'center' }]}> 
+              <Text style={[styles.startButtonText, { color: '#ff5722' }]}>Chưa mở bán</Text>
+            </View>
+          )}
         </View>
 
       </View>
