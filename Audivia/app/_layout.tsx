@@ -21,6 +21,7 @@ import "@/services/locationNotification";
 // import * as Notifications from 'expo-notifications';
 import { checkUserPurchasedTour } from '@/services/historyTransaction';
 import { getTourProgress } from '@/services/progress';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 // import { setupNotificationActions, STOP_TOUR_ACTION_ID, stopLocationTracking } from '@/services/locationNotification';
 
 export default function RootLayout() {
@@ -173,13 +174,18 @@ export default function RootLayout() {
   }, [user?.id]);
   */
 
+  const CLIENT_ID = process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <AuthProvider>
-        <SafeAreaProvider>
-          <LayoutContent />
-        </SafeAreaProvider>
-      </AuthProvider>
+      <GoogleOAuthProvider clientId={CLIENT_ID || ''}>
+        <AuthProvider>
+          <SafeAreaProvider>
+            <LayoutContent />
+          </SafeAreaProvider>
+        </AuthProvider>
+      </GoogleOAuthProvider>
+
     </GestureHandlerRootView>
   );
 }
