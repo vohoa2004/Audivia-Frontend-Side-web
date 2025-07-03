@@ -575,10 +575,21 @@ const styles = StyleSheet.create({
       borderStyle: 'dashed',
     },
     addImageText: {
-      color: COLORS.primary,
-      fontSize: 14,
-      fontWeight: '500',
-      marginTop: 4,
+      color: COLORS.grey,
+      fontWeight: "500",
+    },
+    editProfileButton: {
+      backgroundColor: COLORS.primary,
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 8,
+      marginTop: 20,
+      alignSelf: 'center',
+    },
+    editProfileButtonText: {
+      color: COLORS.light,
+      fontWeight: 'bold',
+      fontSize: 16,
     },
   })
   export default styles;

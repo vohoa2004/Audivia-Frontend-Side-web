@@ -19,6 +19,8 @@ import { createChatRoom, createChatRoomMember, getPrivateRoom } from "@/services
 import { createNotification } from "@/services/notification"
 import { Ionicons } from "@expo/vector-icons"
 import { COLORS } from "@/constants/theme"
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { EditProfileModal } from "@/components/profile/EditProfileModal";
 
 const modalStyles = StyleSheet.create({
   modalOverlay: {
@@ -78,6 +80,9 @@ export default function ProfileScreen() {
   const [status, setStatus] = useState("")
   const [friends, setFriend] = useState<User[]>([])
 
+  // New state variables for profile editing
+  const [showEditProfileModal, setShowEditProfileModal] = useState(false)
+
   const fetchPosts = useCallback(async () => {
     if (profileUser?.id) {
       try {
@@ -129,7 +134,7 @@ export default function ProfileScreen() {
       if (profileUser?.id) {
         fetchPosts();
       }
-      return () => {};
+      return () => { };
     }, [fetchPosts, profileUser?.id])
   );
 
@@ -398,6 +403,25 @@ export default function ProfileScreen() {
     }
   };
 
+  const handleSaveProfile = async (updatedData: Partial<User>) => {
+    if (!profileUser?.id) {
+      Alert.alert('Lỗi', 'Không tìm thấy thông tin người dùng');
+      return;
+    }
+
+    try {
+      await updateUserInfo(profileUser.id, updatedData);
+      setProfileUser(prevUser => (prevUser ? { ...prevUser, ...updatedData } : undefined));
+      Alert.alert('Thành công', 'Cập nhật thông tin cá nhân thành công!');
+    } catch (error: any) {
+      console.error('Lỗi cập nhật thông tin người dùng:', error);
+      Alert.alert(
+        'Lỗi',
+        error.response?.data?.message || error.message || 'Không thể cập nhật thông tin cá nhân. Vui lòng thử lại.'
+      );
+    }
+  };
+
   const renderContent = () => {
     switch (activeTab) {
       case "posts":
@@ -417,6 +441,7 @@ export default function ProfileScreen() {
           <ProfileAbout
             user={profileUser as User}
             isOwnProfile={isOwnProfile}
+            onEditProfile={() => setShowEditProfileModal(true)}
           />
         )
       case "friends":
@@ -473,6 +498,18 @@ export default function ProfileScreen() {
         onSave={handleSavePost}
         editingPost={editingPost}
       />
+
+      {profileUser && (
+        <EditProfileModal
+          visible={showEditProfileModal}
+          onClose={() => {
+            setShowEditProfileModal(false);
+            fetchUserData();
+          }}
+          onSave={handleSaveProfile}
+          user={profileUser as User}
+        />
+      )}
 
       <Modal
         visible={showAvatarModal}
