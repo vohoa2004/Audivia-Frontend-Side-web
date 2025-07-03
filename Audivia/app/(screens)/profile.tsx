@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react"
-import { View, SafeAreaView, FlatList, Alert, Modal, Text, TouchableOpacity, StyleSheet } from "react-native"
+import { View, SafeAreaView, FlatList, Alert, Modal, Text, TouchableOpacity, StyleSheet, Platform } from "react-native"
 import { useRouter, useLocalSearchParams, useFocusEffect } from "expo-router"
 import { useUser } from "@/hooks/useUser"
 import * as ImagePicker from 'expo-image-picker'
@@ -21,6 +21,7 @@ import { Ionicons } from "@expo/vector-icons"
 import { COLORS } from "@/constants/theme"
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { EditProfileModal } from "@/components/profile/EditProfileModal";
+import Swal from "sweetalert2";
 
 const modalStyles = StyleSheet.create({
   modalOverlay: {
@@ -189,29 +190,48 @@ export default function ProfileScreen() {
   }
 
   const handleDeletePost = async (postId: string) => {
-    Alert.alert(
-      'Xác nhận',
-      'Bạn có chắc chắn muốn xóa bài viết này?',
-      [
-        {
-          text: 'Hủy',
-          style: 'cancel'
-        },
-        {
-          text: 'Xóa',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await deletePost(postId)
-              setPosts(posts.filter((post: Post) => post.id !== postId))
-            } catch (error) {
-              Alert.alert('Lỗi', 'Không thể xóa bài viết. Vui lòng thử lại.')
-            }
-          }
+    if (Platform.OS === "web") {
+      const result = await Swal.fire({
+        title: "Xác nhận",
+        text: "Bạn có chắc chắn muốn xóa bài viết này?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy",
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+      });
+      if (result.isConfirmed) {
+        try {
+          await deletePost(postId);
+          setPosts(posts.filter((post: Post) => post.id !== postId));
+          Swal.fire("Đã xoá!", "Bài viết đã được xoá.", "success");
+        } catch (error) {
+          Swal.fire("Lỗi", "Không thể xóa bài viết. Vui lòng thử lại.", "error");
         }
-      ]
-    )
-  }
+      }
+    } else {
+      Alert.alert(
+        "Xác nhận",
+        "Bạn có chắc chắn muốn xóa bài viết này?",
+        [
+          { text: "Hủy", style: "cancel" },
+          {
+            text: "Xóa",
+            style: "destructive",
+            onPress: async () => {
+              try {
+                await deletePost(postId);
+                setPosts(posts.filter((post: Post) => post.id !== postId));
+              } catch (error) {
+                Alert.alert("Lỗi", "Không thể xóa bài viết. Vui lòng thử lại.");
+              }
+            },
+          },
+        ]
+      );
+    }
+  };
 
   const handleSavePost = async (postData: { content: string; location: string; images: string[] }) => {
     if (!profileUser?.id) {
