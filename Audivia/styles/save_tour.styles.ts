@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: COLORS.light,
-      paddingBottom: 120
+      paddingBottom: 20
     },
     header: {
       flexDirection: "row",
@@ -96,7 +96,8 @@ const styles = StyleSheet.create({
       color: "#333",
     },
     tourList: {
-      paddingBottom: 120,
+      flex: 1,
+      paddingBottom: 20,
     },
     tourCard: {
       backgroundColor: "#fff",

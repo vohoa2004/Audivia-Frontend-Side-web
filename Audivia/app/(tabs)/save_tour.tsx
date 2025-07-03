@@ -36,7 +36,7 @@ export default function SavedToursScreen() {
       if (!saveTourToDelete) {
         throw new Error('Không tìm thấy tour yêu thích')
       }
-      
+      console.log('SAVE TOUR', saveTourToDelete)
       await deleteSaveTour(saveTourToDelete.id)
       await refreshSavedTours() 
     } catch (error) {
@@ -53,10 +53,22 @@ export default function SavedToursScreen() {
       <SaveTourNotification savedToursCount={saveTours.length} />
       </View>
       <View style={styles.tourList}>
-      <FlatList data={saveTours} 
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <TourItem tour={item.tour} isSavedTour={true} onDelete={handleDeleteTour} onSave={refreshSavedTours} savedTourId={item.id}/>}
-          showsVerticalScrollIndicator={false} />
+      <FlatList
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 20 }}
+        data={saveTours}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TourItem
+            tour={item.tour}
+            isSavedTour={true}
+            onDelete={handleDeleteTour}
+            onSave={refreshSavedTours}
+            savedTourId={item.id}
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+      />
       </View>
     </SafeAreaView>
   )

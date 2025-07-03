@@ -49,7 +49,8 @@ export const TourItem = ({ tour, isSavedTour = false, onDelete, onSave, savedTou
           style: 'destructive',
           onPress: async () => {
             if (onDelete) {
-              onDelete(tourId);
+              console.log('Deleting save tour with id:', savedTourId);
+              onDelete(savedTourId);
             }
           }
         }

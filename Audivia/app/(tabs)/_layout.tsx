@@ -26,7 +26,7 @@ export default function TabLayout() {
         justifyContent: 'space-between',
         paddingTop: 10,
         paddingBottom: 10,
-        width: tabBarWidth, // Explicitly set width
+        // width: tabBarWidth, // Explicitly set width
         borderWidth: 1,
         opacity: 1,
         position: 'absolute',
@@ -64,7 +64,7 @@ export default function TabLayout() {
                     <Animated.View
                       style={{
                         position: 'absolute',
-                        top: -30,
+                        top: -10,
                         alignItems: 'center',
                         justifyContent: 'center',
                         width: circleSize,
