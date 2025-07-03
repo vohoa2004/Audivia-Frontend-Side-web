@@ -75,7 +75,7 @@ export const SaveTourCard = ({ item, onDelete }: SaveTourCardProps) => {
           </View>
           <View style={styles.tourRating}>
             <Ionicons name="star" size={16} color={COLORS.orange} />
-            <Text style={styles.ratingText}>{item.tour.avgRating.toFixed(1)}</Text>
+            <Text style={{ ...styles.ratingText, flexShrink: 1, minWidth: 90, }}>{item.tour.avgRating.toFixed(1)} {`(${item.tour.ratingCount} đánh giá)`}</Text>
           </View>
         </View>
 

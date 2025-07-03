@@ -70,7 +70,7 @@ export const AboutTab = ({ tour, notForSaleMessage }: AboutTabProps) => {
               />
             ))}
           </View>
-          <Text style={styles.ratingText}>{tour?.avgRating.toFixed(1)}</Text>
+          <Text style={{ ...styles.ratingText, flexShrink: 1, minWidth: 90, }}>{tour?.avgRating.toFixed(1)}{`(${tour?.ratingCount} đánh giá)`}</Text>
         </View>
       </View>
 
