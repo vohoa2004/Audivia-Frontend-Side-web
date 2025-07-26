@@ -18,7 +18,7 @@ jobs:
         script: |
           cd /root/services/Audivia-Frontend-Side-web/Audivia
           git fetch origin
-          git checkout production
+          git checkout main
           git pull
           docker build -t audivia-web .
           docker stop audivia-web-container || true
