@@ -212,7 +212,7 @@ export default function DepositScreen() {
 
         {qrInfo && (
           <View style={styles.vietQrContainer}>
-            <Text style={styles.vietQrInstructionText}>Mở Ứng Dụng Ngân Hàng Quét QRCode</Text>
+            <Text style={styles.vietQrInstructionText}><Ionicons name="warning-outline" size={18} color="#FFA500" style={{ marginRight: 6 }} /> Lưu ý: Chỉ dùng ứng dụng ngân hàng để quét QRCode, không hỗ trợ ví điện tử như Momo, ZaloPay,...</Text>
             <Image source={require('../../assets/images/logo-vietqr.png')} style={styles.vietQrLogo} />
 
             <View style={styles.qrWrapperInner}>
